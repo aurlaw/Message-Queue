@@ -8,8 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NHLStats.Core.Data;
+using NHLStats.Data;
+using NHLStats.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
-namespace GraphQL
+
+
+namespace GraphQL.Api
 {
     public class Startup
     {
@@ -24,10 +30,16 @@ namespace GraphQL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+			services.AddDbContext<NHLStatsContext>(options => 
+			                                       options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
+			services.AddTransient<IPlayerRepository, PlayerRepository>();
+			services.AddTransient<ISkaterStatisticRepository, SkaterStatisticRepository>();
+
+			services.BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, NHLStatsContext db)
         {
             if (env.IsDevelopment())
             {
@@ -35,6 +47,7 @@ namespace GraphQL
             }
 
             app.UseMvc();
+			db.EnsureSeedData();
         }
     }
 }
