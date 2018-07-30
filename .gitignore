@@ -33,4 +33,5 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 
-appsettings.json
+/services/SBReceiver/appsettings.json
+/services/SBSender/appsettings.json
