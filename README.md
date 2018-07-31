@@ -30,6 +30,10 @@ $ dotnet run --project services/SBReceiver
 
 ## GraphQL Endpoint
 
-`https://github.com/mmacneil/ASPNetCoreGraphQL`
+This demo is based on `https://github.com/mmacneil/ASPNetCoreGraphQL` with an accompanying blog on ```https://fullstackmark.com/post/17/building-a-graphql-api-with-aspnet-core-2-and-entity-framework-core```
 
-TBD
+Still in development
+
+```
+$ dotnet run --project services/GraphQL.API
+```

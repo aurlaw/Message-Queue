@@ -35,3 +35,5 @@ msbuild.wrn
 
 /services/SBReceiver/appsettings.json
 /services/SBSender/appsettings.json
+
+/reference
