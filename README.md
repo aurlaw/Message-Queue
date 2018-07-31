@@ -5,7 +5,7 @@
 $ dotnet build
 ```
 
-Create a ```appsettings.json`` file for both SBSender and SBReceiver projects.
+Create a ```appsettings.json``` file for both SBSender and SBReceiver projects.
 
 ```
 {
