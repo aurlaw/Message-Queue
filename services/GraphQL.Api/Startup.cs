@@ -12,8 +12,9 @@ using NHLStats.Core.Data;
 using NHLStats.Data;
 using NHLStats.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-
-
+using GraphQL.Api.Models;
+using GraphQL;
+using GraphQL.Types;
 
 namespace GraphQL.Api
 {
@@ -34,8 +35,16 @@ namespace GraphQL.Api
 			                                       options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
 			services.AddTransient<IPlayerRepository, PlayerRepository>();
 			services.AddTransient<ISkaterStatisticRepository, SkaterStatisticRepository>();
+            // GraphQL
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+            services.AddSingleton<NHLStatsQuery>();
+            services.AddSingleton<NHLStatsMutation>();
+            services.AddSingleton<PlayerType>();
+            services.AddSingleton<PlayerInputType>();
+            services.AddSingleton<SkaterStatisticType>();
 
-			services.BuildServiceProvider();
+            var sp = services.BuildServiceProvider();
+            services.AddSingleton<ISchema>(new NHLStatsSchema(new FuncDependencyResolver(type => sp.GetService(type))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +55,7 @@ namespace GraphQL.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseGraphiQl();
             app.UseMvc();
 			db.EnsureSeedData();
         }
