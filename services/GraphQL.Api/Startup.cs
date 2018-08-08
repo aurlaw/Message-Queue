@@ -32,7 +32,7 @@ namespace GraphQL.Api
         {
             services.AddMvc();
 			services.AddDbContext<NHLStatsContext>(options => 
-			                                       options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
+			                                       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddTransient<IPlayerRepository, PlayerRepository>();
 			services.AddTransient<ISkaterStatisticRepository, SkaterStatisticRepository>();
             // GraphQL
