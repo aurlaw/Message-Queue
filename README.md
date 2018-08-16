@@ -37,3 +37,14 @@ Still in development
 ```
 $ dotnet run --project services/GraphQL.API
 ```
+
+GraphQL Schema
+```services/GraphQL.API/schema\schema.graphql```
+
+
+```
+$npm install -g graphql-cli
+$cd services/GraphQL.API/schema
+$graphql get-schema
+```
+

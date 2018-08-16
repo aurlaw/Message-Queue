@@ -1,0 +1,82 @@
+# source: http://localhost:5000/graphql/
+# timestamp: Thu Aug 16 2018 16:20:55 GMT-0400 (Eastern Daylight Time)
+
+schema {
+  query: NHLStatsQuery
+  mutation: CreatePlayerMutation
+}
+
+type CreatePlayerMutation {
+  createPlayer(player: PlayerInput!): PlayerType
+}
+
+"""
+The `Date` scalar type represents a year, month and day in accordance with the
+[ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) standard.
+"""
+scalar Date
+
+"""
+The `DateTime` scalar type represents a date and time. `DateTime` expects
+timestamps to be formatted in accordance with the
+[ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) standard.
+"""
+scalar DateTime
+
+"""
+The `DateTimeOffset` scalar type represents a date, time and offset from UTC.
+`DateTimeOffset` expects timestamps to be formatted in accordance with the
+[ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) standard.
+"""
+scalar DateTimeOffset
+
+scalar Decimal
+
+"""
+The `Milliseconds` scalar type represents a period of time represented as the total number of milliseconds.
+"""
+scalar Milliseconds
+
+type NHLStatsQuery {
+  player(id: Int = null): PlayerType
+  players: [PlayerType]
+  randomPlayer: PlayerType
+}
+
+input PlayerInput {
+  name: String!
+  birthPlace: String = null
+  height: String = null
+  weightLbs: Int = null
+  birthDate: Date = null
+}
+
+type PlayerType {
+  birthDate: String
+  birthPlace: String!
+  height: String!
+  id: Int!
+  name: String
+
+  """Player's skater stats"""
+  skaterSeasonStats(id: Int = null): [SkaterStatisticType]
+  weightLbs: Int!
+}
+
+"""
+The `Seconds` scalar type represents a period of time represented as the total number of seconds.
+"""
+scalar Seconds
+
+type SkaterStatisticType {
+  assists: Int
+  goals: Int
+  gp: Int
+  id: Int!
+  league: String!
+  plusMinus: Int
+  points: Int
+  season: String!
+  seasonId: Int!
+  team: String!
+}
