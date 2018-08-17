@@ -1,7 +1,7 @@
  using GraphQL.Types;
 using NHLStats.Core.Models;
 
-namespace GraphQL.Api.Models
+namespace GraphQLApi.Models
 {
     public class SkaterStatisticType : ObjectGraphType<SkaterStatistic>
     {

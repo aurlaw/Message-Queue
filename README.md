@@ -32,19 +32,22 @@ $ dotnet run --project services/SBReceiver
 
 This demo is based on https://github.com/mmacneil/ASPNetCoreGraphQL with an accompanying blog on https://fullstackmark.com/post/17/building-a-graphql-api-with-aspnet-core-2-and-entity-framework-core
 
+Runtime: .NET Core 2.1
+
 Still in development
 
 ```
-$ dotnet run --project services/GraphQL.API
+$ dotnet restore
+$ dotnet run --project services/GraphQL.Api
 ```
 
 GraphQL Schema
-```services/GraphQL.API/schema\schema.graphql```
+```services/GraphQL.Api/schema/schema.graphql```
 
 
 ```
-$npm install -g graphql-cli
-$cd services/GraphQL.API/schema
-$graphql get-schema
+$ npm install -g graphql-cli
+$ cd services/GraphQL.Api/schema
+$ graphql get-schema
 ```
 

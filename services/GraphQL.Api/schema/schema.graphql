@@ -1,5 +1,5 @@
-# source: http://localhost:5000/graphql/
-# timestamp: Thu Aug 16 2018 16:20:55 GMT-0400 (Eastern Daylight Time)
+# source: http://localhost:50000/graphql/
+# timestamp: Thu Aug 16 2018 22:22:48 GMT-0400 (EDT)
 
 schema {
   query: NHLStatsQuery

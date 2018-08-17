@@ -12,11 +12,11 @@ using NHLStats.Core.Data;
 using NHLStats.Data;
 using NHLStats.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using GraphQL.Api.Models;
+using GraphQLApi.Models;
 using GraphQL;
 using GraphQL.Types;
 
-namespace GraphQL.Api
+namespace GraphQLApi
 {
     public class Startup
     {

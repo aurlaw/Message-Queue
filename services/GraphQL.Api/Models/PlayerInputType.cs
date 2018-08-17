@@ -1,6 +1,6 @@
 using GraphQL.Types;
 
-namespace GraphQL.Api.Models
+namespace GraphQLApi.Models
 {
     public class PlayerInputType : InputObjectGraphType
     {

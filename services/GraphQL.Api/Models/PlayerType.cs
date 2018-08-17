@@ -2,7 +2,7 @@ using GraphQL.Types;
 using NHLStats.Core.Data;
 using NHLStats.Core.Models;
 
-namespace GraphQL.Api.Models
+namespace GraphQLApi.Models
 {
     public class PlayerType: ObjectGraphType<Player>
     {
