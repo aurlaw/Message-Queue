@@ -7,6 +7,6 @@ namespace NHLStats.Core.Data
 {
     public interface ISkaterStatisticRepository
     {
-        Task<List<SkaterStatistic>> Get(int playerId, int? first = null, int? offset = null, bool? sortAsc=null);
+        Task<List<SkaterStatistic>> Get(int playerId, int? limit = null, int? offset = null, bool? sortAsc=null);
     }
 }

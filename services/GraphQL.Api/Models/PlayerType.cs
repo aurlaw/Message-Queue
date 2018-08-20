@@ -19,15 +19,15 @@ namespace GraphQLApi.Models
             //     resolve: context => skaterStatisticRepository.Get(context.Source.Id), description: "Player's skater stats");
             Field<ListGraphType<SkaterStatisticType>>("skaterSeasonStats",
                 arguments: new QueryArguments(
-                    new QueryArgument<IntGraphType> { Name = "first" },
+                    new QueryArgument<IntGraphType> { Name = "limit" },
                     new QueryArgument<IntGraphType> { Name = "offset" },
                     new QueryArgument<BooleanGraphType> { Name = "sort" }
                 ),
                 resolve: context => {
-                    var first = context.GetArgument<int?>("first");
+                    var limit = context.GetArgument<int?>("limit");
                     var offset = context.GetArgument<int?>("offset");
                     var sort = context.GetArgument<bool?>("sort");
-                    return skaterStatisticRepository.Get(context.Source.Id, first, offset, sort);
+                    return skaterStatisticRepository.Get(context.Source.Id, limit, offset, sort);
                 }
                 , description: "Player's skater stats");           
          }

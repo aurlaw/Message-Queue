@@ -17,7 +17,7 @@ namespace NHLStats.Data.Repositories
             _db = db;
         }
 
-        public async Task<List<SkaterStatistic>> Get(int playerId, int? first = null, int? offset = null, bool? sortAsc=null)
+        public async Task<List<SkaterStatistic>> Get(int playerId, int? limit = null, int? offset = null, bool? sortAsc=null)
         {
             var results = _db.SkaterStatistics.Include(ss=>ss.Season).Include(ss=>ss.League).Include(ss=>ss.Team).Where(ss => ss.PlayerId == playerId);
             if(sortAsc.HasValue) 
@@ -38,9 +38,9 @@ namespace NHLStats.Data.Repositories
             {
                 results = results.Skip(offset.Value);
             }
-            if(first.HasValue) 
+            if(limit.HasValue) 
             {
-                results = results.Take(first.Value);
+                results = results.Take(limit.Value);
             }
             
             return await results.ToListAsync();
