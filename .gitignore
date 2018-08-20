@@ -35,6 +35,7 @@ msbuild.wrn
 
 /services/SBReceiver/appsettings.json
 /services/SBSender/appsettings.json
-/services/GraphQL.Api/appsettings.Development.json
+/services/GraphQL.Api/appsettings.Development.json 
 
 /reference
+services/GraphQL.Api/appsettings.Development.json
