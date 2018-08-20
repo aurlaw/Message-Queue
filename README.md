@@ -41,7 +41,12 @@ $ dotnet restore
 $ dotnet run --project services/GraphQL.Api
 ```
 
-GraphQL Schema
+GraphQL Playground
+```http://localhost:50000/ui/playground/```
+
+
+
+GraphQL Schema found under
 ```services/GraphQL.Api/schema/schema.graphql```
 
 

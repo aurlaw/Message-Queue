@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using GraphQLApi.Models;
 using GraphQL;
 using GraphQL.Types;
+using GraphQLApi.Ui.Playground;
 
 namespace GraphQLApi
 {
@@ -55,6 +56,10 @@ namespace GraphQLApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()
+            {
+                Path = "/ui/playground"
+            });
             app.UseGraphiQl();
             app.UseMvc();
 			db.EnsureSeedData();
