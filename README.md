@@ -56,3 +56,8 @@ $ cd services/GraphQL.Api/schema
 $ graphql get-schema
 ```
 
+GraphQL.ConsoleApp and GraphQL.Api
+
+Additional connection string ```HangfireConnection``` for DB ```HangfireGQL```
+
+

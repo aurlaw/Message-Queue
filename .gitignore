@@ -39,3 +39,4 @@ msbuild.wrn
 
 /reference
 services/GraphQL.Api/appsettings.Development.json
+services/GraphQL.ConsoleApp/appsettings.Development.json

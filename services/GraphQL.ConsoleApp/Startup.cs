@@ -12,13 +12,9 @@ using NHLStats.Core.Data;
 using NHLStats.Data;
 using NHLStats.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using GraphQLApi.Models;
-using GraphQL;
-using GraphQL.Types;
-using GraphQLApi.Ui.Playground;
 using Hangfire;
 
-namespace GraphQLApi
+namespace GraphQL.ConsoleApp
 {
     public class Startup
     {
@@ -36,39 +32,33 @@ namespace GraphQLApi
 			                                       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddTransient<IPlayerRepository, PlayerRepository>();
 			services.AddTransient<ISkaterStatisticRepository, SkaterStatisticRepository>();
-            // GraphQL
-            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
-            services.AddSingleton<NHLStatsQuery>();
-            services.AddSingleton<NHLStatsMutation>();
-            services.AddSingleton<PlayerType>();
-            services.AddSingleton<PlayerInputType>();
-            services.AddSingleton<SkaterStatisticType>();
 
-            var sp = services.BuildServiceProvider();
-            services.AddSingleton<ISchema>(new NHLStatsSchema(new FuncDependencyResolver(type => sp.GetService(type))));
+        services.AddHangfire(configuration =>
+            {
+                // Do pretty much the same as you'd do with 
+                // GlobalConfiguration.Configuration in classic .NET
 
+                // NOTE: logger and activator would be configured automatically, 
+                // and in most cases you don't need to configure those.
 
-            GlobalConfiguration.Configuration.UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"));
+                configuration.UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"));
 
-            services.AddMvc();
+                // ... maybe something else, e.g. configuration.UseConsole()
+            });
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, NHLStatsContext db)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseHangfireDashboard(); 
 
-            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()
-            {
-                Path = "/ui/playground"
-            });
-            app.UseGraphiQl();
-            app.UseMvc();
-			db.EnsureSeedData();
+            // using (var server = new BackgroundJobServer())
+            // {
+            //     Console.WriteLine("Hangfire Server started. Press any key to exit...");
+            //     Console.ReadKey();
+            // }
+
         }
     }
 }

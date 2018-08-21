@@ -1,20 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1" />
-    <!-- Keep this -->
-    <!-- <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.1" /> -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1"/>
+    <PackageReference Include="HangFire.Core" Version="1.6.20"/>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NHLStats.Core\NHLStats.Core.csproj" />
+    <ProjectReference Include="..\NHLStats.Core\NHLStats.Core.csproj"/>
   </ItemGroup>
 </Project>
