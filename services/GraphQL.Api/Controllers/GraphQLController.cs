@@ -5,6 +5,7 @@ using GraphQL;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Mvc;
 using GraphQLApi.Models;
+using Microsoft.Extensions.Logging;
 
 namespace GraphQLApi.Controllers
 {
@@ -14,16 +15,20 @@ namespace GraphQLApi.Controllers
     {
         private readonly IDocumentExecuter _documentExecuter;
         private readonly ISchema _schema;
+        private readonly ILogger<GraphQLController> _logger;
 
-        public GraphQLController(ISchema schema, IDocumentExecuter documentExecuter)
+        public GraphQLController(ISchema schema, IDocumentExecuter documentExecuter, ILogger<GraphQLController> logging)
         {
             _schema = schema;
             _documentExecuter = documentExecuter;
+            _logger = logging;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] GraphQLQuery query)
         {
+            _logger.LogInformation("Executing GraphQL");
+
             if (query == null) { throw new ArgumentNullException(nameof(query)); }
             var inputs = query.Variables.ToInputs();
             var executionOptions = new ExecutionOptions

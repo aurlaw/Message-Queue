@@ -33,6 +33,8 @@ $ dotnet run --project services/SBReceiver
 This demo is based on https://github.com/mmacneil/ASPNetCoreGraphQL with an accompanying blog on https://fullstackmark.com/post/17/building-a-graphql-api-with-aspnet-core-2-and-entity-framework-core
 
 Runtime: .NET Core 2.1
+NLog
+Hangfire
 
 Still in development
 

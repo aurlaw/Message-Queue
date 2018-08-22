@@ -10,11 +10,17 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1"/>
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.1"/>
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1"/>
+    <PackageReference Include="NLog" Version="4.5.8"/>
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.2.1"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1"/>
     <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="appsettings.Development.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
