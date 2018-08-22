@@ -8,5 +8,15 @@ namespace NHLStats.Core.Data
     public interface ISkaterStatisticRepository
     {
         Task<List<SkaterStatistic>> Get(int playerId, int? limit = null, int? offset = null, bool? sortAsc=null);
+
+       Task<SkaterStatistic> Add(SkaterStatistic stat);
+       Task<List<SkaterStatistic>> AddRange(List<SkaterStatistic> statList);
+ 
+
+        Task<List<Season>> GetAllSeasons();
+
+        Task<List<Team>> GetAllTeams();
+
+        Task<List<League>> GetAllLeagues();
     }
 }

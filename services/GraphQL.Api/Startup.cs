@@ -43,6 +43,9 @@ namespace GraphQLApi
             services.AddSingleton<PlayerType>();
             services.AddSingleton<PlayerInputType>();
             services.AddSingleton<SkaterStatisticType>();
+            services.AddSingleton<LeagueType>();
+            services.AddSingleton<TeamType>();
+            services.AddSingleton<SeasonType>();
 
             var sp = services.BuildServiceProvider();
             services.AddSingleton<ISchema>(new NHLStatsSchema(new FuncDependencyResolver(type => sp.GetService(type))));

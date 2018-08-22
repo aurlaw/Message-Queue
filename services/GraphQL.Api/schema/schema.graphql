@@ -1,5 +1,5 @@
 # source: http://localhost:50000/graphql/
-# timestamp: Mon Aug 20 2018 16:14:30 GMT-0400 (Eastern Daylight Time)
+# timestamp: Wed Aug 22 2018 18:16:15 GMT-0400 (Eastern Daylight Time)
 
 schema {
   query: NHLStatsQuery
@@ -32,15 +32,24 @@ scalar DateTimeOffset
 
 scalar Decimal
 
+type LeagueType {
+  abbreviation: String!
+  id: Int!
+  name: String!
+}
+
 """
 The `Milliseconds` scalar type represents a period of time represented as the total number of milliseconds.
 """
 scalar Milliseconds
 
 type NHLStatsQuery {
+  leagues: [LeagueType]
   player(id: Int = null): PlayerType
   players: [PlayerType]
   randomPlayer: PlayerType
+  seasons: [SeasonType]
+  teams: [TeamType]
 }
 
 input PlayerInput {
@@ -63,6 +72,11 @@ type PlayerType {
   weightLbs: Int!
 }
 
+type SeasonType {
+  id: Int!
+  name: String!
+}
+
 """
 The `Seconds` scalar type represents a period of time represented as the total number of seconds.
 """
@@ -79,4 +93,10 @@ type SkaterStatisticType {
   season: String!
   seasonId: Int!
   team: String!
+}
+
+type TeamType {
+  abbreviation: String!
+  id: Int!
+  name: String!
 }

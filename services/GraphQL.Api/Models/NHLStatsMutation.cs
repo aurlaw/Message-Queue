@@ -19,6 +19,8 @@ namespace GraphQLApi.Models
                 resolve: context =>
                 {
                     var player = context.GetArgument<Player>("player");
+                    //TODO: Handle SkaterStatistic
+                    
                     return playerRepository.Add(player);
                 });
         }
