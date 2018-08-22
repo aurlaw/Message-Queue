@@ -1,25 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Hangfire;
+using Hangfire.SqlServer;
+
 namespace GraphQL.ConsoleApp
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+             var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{environmentName}.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables();
+
+
+            var configuration = builder.Build();
+
+            JobStorage.Current = new SqlServerStorage(configuration.GetConnectionString("HangfireConnection"));
+            //LogProvider.SetCurrentLogProvider(new ColouredConsoleLogProvider());
+
+            using (var server = new BackgroundJobServer())
+            {
+                Console.WriteLine("Hangfire Server started. Press any key to exit...");
+                Console.ReadKey();
+            }
+
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://localhost:5050")
-                .UseStartup<Startup>()
-                .Build();
     }
 }

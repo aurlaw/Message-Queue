@@ -3,21 +3,22 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\"/>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GraphQL" Version="2.0.0"/>
-    <PackageReference Include="graphiql" Version="1.1.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.2"/>
-    <PackageReference Include="HangFire.Core" Version="1.6.20"/>
-    <PackageReference Include="HangFire.SqlServer" Version="1.6.20"/>
+    <PackageReference Include="GraphQL" Version="2.0.0" />
+    <PackageReference Include="graphiql" Version="1.1.0" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.6.20" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.2" />
+    <PackageReference Include="HangFire.Core" Version="1.6.20" />
+    <PackageReference Include="HangFire.SqlServer" Version="1.6.20" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2"/>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\backend\NHLStats.Core\NHLStats.Core.csproj"/>
-    <ProjectReference Include="..\..\backend\NHLStats.Data\NHLStats.Data.csproj"/>
-    <ProjectReference Include="..\..\modules\GraphQLApi.Ui.Playground\GraphQLApi.Ui.Playground.csproj"/>
+    <ProjectReference Include="..\..\backend\NHLStats.Core\NHLStats.Core.csproj" />
+    <ProjectReference Include="..\..\backend\NHLStats.Data\NHLStats.Data.csproj" />
+    <ProjectReference Include="..\..\modules\GraphQLApi.Ui.Playground\GraphQLApi.Ui.Playground.csproj" />
   </ItemGroup>
 </Project>

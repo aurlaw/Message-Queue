@@ -41,14 +41,15 @@ $ dotnet restore
 $ dotnet run --project services/GraphQL.Api
 ```
 
+Hangfire Dashboard
+```http://localhost:50000/hangfire/```
+
 GraphQL Playground
 ```http://localhost:50000/ui/playground/```
 
 
-
 GraphQL Schema found under
 ```services/GraphQL.Api/schema/schema.graphql```
-
 
 ```
 $ npm install -g graphql-cli
@@ -56,8 +57,42 @@ $ cd services/GraphQL.Api/schema
 $ graphql get-schema
 ```
 
+Mutation example
+
+```
+mutation ($player: PlayerInput!) {
+    createPlayer(player: $player) {
+        id name
+    }
+}
+```
+vars
+```
+{
+    "player": {
+    "name": "Jaromir Jagr",
+    "birthPlace": "Kladno, Czech Republic",
+    "height": "6'03",
+    "weightLbs": 230,
+    "birthDate": "1972-02-15"
+    }
+}
+```
+
+
+
 GraphQL.ConsoleApp and GraphQL.Api
 
 Additional connection string ```HangfireConnection``` for DB ```HangfireGQL```
+
+
+## Hangfire Console
+Runtime: .NET Core 2.1
+
+Still in development
+
+```
+$ dotnet run --project services/GraphQL.ConsoleApp
+```
 
 

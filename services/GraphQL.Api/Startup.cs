@@ -48,7 +48,19 @@ namespace GraphQLApi
             services.AddSingleton<ISchema>(new NHLStatsSchema(new FuncDependencyResolver(type => sp.GetService(type))));
 
 
-            GlobalConfiguration.Configuration.UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"));
+            // GlobalConfiguration.Configuration.UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"));
+                services.AddHangfire(configuration =>
+                    {
+                        // Do pretty much the same as you'd do with 
+                        // GlobalConfiguration.Configuration in classic .NET
+
+                        // NOTE: logger and activator would be configured automatically, 
+                        // and in most cases you don't need to configure those.
+
+                        configuration.UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"));
+
+                        // ... maybe something else, e.g. configuration.UseConsole()
+                    });
 
             services.AddMvc();
 
@@ -61,10 +73,13 @@ namespace GraphQLApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            var playGround = "/ui/playground";
+            var options = new DashboardOptions { AppPath = playGround };
 
+            app.UseHangfireDashboard("/hangfire", options);
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()
             {
-                Path = "/ui/playground"
+                Path = playGround
             });
             app.UseGraphiQl();
             app.UseMvc();

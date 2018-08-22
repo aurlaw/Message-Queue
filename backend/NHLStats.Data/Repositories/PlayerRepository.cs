@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NHLStats.Core.Data;
 using NHLStats.Core.Models;
-
+using Hangfire;
 namespace NHLStats.Data.Repositories
 {
     public class PlayerRepository : IPlayerRepository
@@ -38,6 +38,8 @@ namespace NHLStats.Data.Repositories
         {
             await _db.Players.AddAsync(player);
             await _db.SaveChangesAsync();
+            BackgroundJob.Enqueue(() => Console.WriteLine($"added {player.Name}"));
+
             return player;
         }
     }
