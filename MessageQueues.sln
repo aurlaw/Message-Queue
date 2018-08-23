@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SBSender", "services\SBSend
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SBReceiver", "services\SBReceiver\SBReceiver.csproj", "{ACB65C1E-AF48-4E3F-938B-7E2571B9AF29}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLApi", "services\GraphQL.Api\GraphQLApi.csproj", "{2D41374D-A0C5-4DD4-B838-1D356F1575F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQL.Api", "services\GraphQL.Api\GraphQL.Api.csproj", "{2D41374D-A0C5-4DD4-B838-1D356F1575F0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHLStats.Core", "backend\NHLStats.Core\NHLStats.Core.csproj", "{30E49655-F9B1-43F8-B8DD-13BBC6655E98}"
 EndProject

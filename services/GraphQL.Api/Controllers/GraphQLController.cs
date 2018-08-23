@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Mvc;
-using GraphQLApi.Models;
+using GraphQL.Api.Models;
 using Microsoft.Extensions.Logging;
 
-namespace GraphQLApi.Controllers
+namespace GraphQL.Api.Controllers
 {
 
     [Route("[controller]")] 

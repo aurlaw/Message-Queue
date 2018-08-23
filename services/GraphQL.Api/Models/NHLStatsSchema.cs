@@ -1,7 +1,7 @@
 using GraphQL;
 using GraphQL.Types;
 
-namespace GraphQLApi.Models
+namespace GraphQL.Api.Models
 {
     public class NHLStatsSchema : Schema
     {

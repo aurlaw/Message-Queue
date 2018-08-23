@@ -12,13 +12,13 @@ using NHLStats.Core.Data;
 using NHLStats.Data;
 using NHLStats.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using GraphQLApi.Models;
+using GraphQL.Api.Models;
 using GraphQL;
 using GraphQL.Types;
 using GraphQLApi.Ui.Playground;
 using Hangfire;
 
-namespace GraphQLApi
+namespace GraphQL.Api
 {
     public class Startup
     {
@@ -42,6 +42,7 @@ namespace GraphQLApi
             services.AddSingleton<NHLStatsMutation>();
             services.AddSingleton<PlayerType>();
             services.AddSingleton<PlayerInputType>();
+            services.AddSingleton<SkaterStatisticInputType>();
             services.AddSingleton<SkaterStatisticType>();
             services.AddSingleton<LeagueType>();
             services.AddSingleton<TeamType>();

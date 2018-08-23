@@ -77,8 +77,21 @@ vars
     "height": "6'03",
     "weightLbs": 230,
     "birthDate": "1972-02-15"
-    }
+    },
+    "skaterStats": [
+            {
+            "seasonId": 17,
+            "leagueId": 1,
+            "teamId": 5,
+            "gamesPlayed": 82,
+            "goals": 24,
+            "assists": 43,
+            "points": 67,
+            "plusMinus": 16
+            }
+        ]  
 }
+
 ```
 
 

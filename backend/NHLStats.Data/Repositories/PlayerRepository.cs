@@ -38,7 +38,7 @@ namespace NHLStats.Data.Repositories
         {
             await _db.Players.AddAsync(player);
             await _db.SaveChangesAsync();
-            BackgroundJob.Enqueue(() => Console.WriteLine($"added {player.Name}"));
+            BackgroundJob.Enqueue(() => Console.WriteLine($"added {player.Id}"));
 
             return player;
         }

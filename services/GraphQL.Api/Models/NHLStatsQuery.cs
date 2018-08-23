@@ -4,7 +4,7 @@ using NHLStats.Core.Data;
 using NHLStats.Core.Models;
 using Microsoft.Extensions.Logging;
 
-namespace GraphQLApi.Models
+namespace GraphQL.Api.Models
 {
     public class NHLStatsQuery : ObjectGraphType
     {

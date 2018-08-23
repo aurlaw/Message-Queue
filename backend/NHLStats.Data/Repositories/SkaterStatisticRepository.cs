@@ -1,10 +1,12 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NHLStats.Core.Data;
 using NHLStats.Core.Models;
+using Hangfire;
 
 namespace NHLStats.Data.Repositories
 {
@@ -49,22 +51,21 @@ namespace NHLStats.Data.Repositories
        
       
 
-        public async Task<SkaterStatistic> Add(SkaterStatistic stat)
-        {
-                    //TODO: Handle SkaterStatistic
-            // await _db.Players.AddAsync(player);
-            // await _db.SaveChangesAsync();
-            // BackgroundJob.Enqueue(() => Console.WriteLine($"added {player.Name}"));
-            return null;
-        }
+        // public async Task<SkaterStatistic> Add(SkaterStatistic stat)
+        // {
+        //             //TODO: Handle SkaterStatistic
+        //     // await _db.Players.AddAsync(player);
+        //     // await _db.SaveChangesAsync();
+        //     // BackgroundJob.Enqueue(() => Console.WriteLine($"added {player.Name}"));
+        //     return null;
+        // }
 
-        public async  Task<List<SkaterStatistic>> AddRange(List<SkaterStatistic> statList)
+        public async Task AddRange(List<SkaterStatistic> statList)
         {
-                    //TODO: Handle SkaterStatistic
-            // await _db.Players.AddAsync(player);
-            // await _db.SaveChangesAsync();
-            // BackgroundJob.Enqueue(() => Console.WriteLine($"added {player.Name}"));
-            return null;
+
+            await _db.SkaterStatistics.AddRangeAsync(statList);
+            await _db.SaveChangesAsync();
+            // BackgroundJob.Enqueue(() => Console.WriteLine($"added {statList.Count}"));
         }
 
         public async Task<List<Season>> GetAllSeasons() 

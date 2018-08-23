@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
 
-namespace GraphQLApi
+namespace GraphQL.Api
 {
     public class Program
     {

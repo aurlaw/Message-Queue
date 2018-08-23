@@ -9,12 +9,12 @@ namespace NHLStats.Core.Models
         public int LeagueId { get; set; }
         public int TeamId { get; set; }
         public int PlayerId { get; set; }
-        public ushort GamesPlayed { get; set; }
-        public ushort Goals { get; set; }
-        public ushort Assists { get; set; }
-        public ushort Points { get; set; }
-        public ushort PenaltyMinutes { get; set; }
-        public short? PlusMinus { get; set; }
+        public int GamesPlayed { get; set; }
+        public int Goals { get; set; }
+        public int Assists { get; set; }
+        public int Points { get; set; }
+        public int PenaltyMinutes { get; set; }
+        public int? PlusMinus { get; set; }
 
         public virtual Season Season { get; set; }
         public virtual League League { get; set; }
