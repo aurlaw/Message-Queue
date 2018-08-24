@@ -10,6 +10,8 @@ using NHLStats.Core.Models;
 using Microsoft.Extensions.Logging;
 
 using Hangfire;
+using NHLStats.Core;
+
 namespace NHLStats.Data.Repositories
 {
     public class PlayerRepository : IPlayerRepository
@@ -67,6 +69,8 @@ namespace NHLStats.Data.Repositories
                     }
 
                     transaction.Commit();
+                    BackgroundJob.Enqueue<IProcessor>(p => p.Process(player));
+
                 }
                 catch (Exception ex)
                 {
@@ -98,12 +102,15 @@ namespace NHLStats.Data.Repositories
 
                     }
                     transaction.Commit();
-                    status = new Status(StatusType.Deleted);
+                    BackgroundJob.Enqueue<IProcessor>(p => p.Process(delPlayer));
+                    status.StatusType = StatusType.Deleted;
+                    status.Message = $"{delPlayer.Name} deleted";
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, $"Error deleting player and stats: {ex.Message}");
-                    status = new Status(StatusType.Error, ex.Message);
+                    status.StatusType = StatusType.Error;
+                    status.Message = ex.Message;
                 }
             }
             return status;
