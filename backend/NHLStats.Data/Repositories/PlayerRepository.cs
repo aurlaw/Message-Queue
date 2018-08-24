@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NHLStats.Core.Data;
 using NHLStats.Core.Models;
+using Microsoft.Extensions.Logging;
+
 using Hangfire;
 namespace NHLStats.Data.Repositories
 {
     public class PlayerRepository : IPlayerRepository
     {
         private readonly NHLStatsContext _db;
+        private readonly ILogger<PlayerRepository> _logger;
 
-        public PlayerRepository(NHLStatsContext db)
+        public PlayerRepository(NHLStatsContext db, ILogger<PlayerRepository>  logger)
         {
             _db = db;
+            _logger = logger;
         }
 
         public async Task<Player> Get(int id)
@@ -42,5 +46,69 @@ namespace NHLStats.Data.Repositories
 
             return player;
         }
+
+        public async Task<Player> AddWithSkaterStats(Player player, List<SkaterStatistic> statsList)
+        {
+            using(var transaction = _db.Database.BeginTransaction())
+            {
+                try 
+                {
+                    await _db.Players.AddAsync(player);
+                    await _db.SaveChangesAsync();
+                    if(statsList != null && statsList.Any())
+                    {
+                        foreach(var stat in statsList)
+                        {
+                            stat.PlayerId = player.Id;
+                            await _db.SkaterStatistics.AddAsync(stat);
+                        }
+                        await _db.SaveChangesAsync();
+
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $"Error saving player and stats: {ex.Message}");
+                    throw;
+                }
+            }
+            return player;
+        }
+
+        public async Task<Status> Delete(int id)
+        {
+            var status = new Status();
+            using(var transaction = _db.Database.BeginTransaction())
+            {
+                try 
+                {
+                   var delPlayer = await _db.Players.FirstOrDefaultAsync(p => p.Id == id);     
+                    if(delPlayer != null) 
+                    {
+                        var statsList = await _db.SkaterStatistics.Where(p => p.PlayerId == id).ToArrayAsync();
+                        if(statsList != null) 
+                        {
+                             _db.SkaterStatistics.RemoveRange(statsList);
+                             await _db.SaveChangesAsync();
+                        }
+                        _db.Players.Remove(delPlayer);
+                        await _db.SaveChangesAsync();
+
+                    }
+                    transaction.Commit();
+                    status = new Status(StatusType.Deleted);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $"Error deleting player and stats: {ex.Message}");
+                    status = new Status(StatusType.Error, ex.Message);
+                }
+            }
+            return status;
+        }
+
+
     }
 }

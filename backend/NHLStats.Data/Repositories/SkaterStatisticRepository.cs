@@ -48,24 +48,12 @@ namespace NHLStats.Data.Repositories
             return await results.ToListAsync();
         }
 
-       
-      
-
-        // public async Task<SkaterStatistic> Add(SkaterStatistic stat)
-        // {
-        //             //TODO: Handle SkaterStatistic
-        //     // await _db.Players.AddAsync(player);
-        //     // await _db.SaveChangesAsync();
-        //     // BackgroundJob.Enqueue(() => Console.WriteLine($"added {player.Name}"));
-        //     return null;
-        // }
 
         public async Task AddRange(List<SkaterStatistic> statList)
         {
 
             await _db.SkaterStatistics.AddRangeAsync(statList);
             await _db.SaveChangesAsync();
-            // BackgroundJob.Enqueue(() => Console.WriteLine($"added {statList.Count}"));
         }
 
         public async Task<List<Season>> GetAllSeasons() 

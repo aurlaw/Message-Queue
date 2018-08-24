@@ -10,7 +10,7 @@ namespace GraphQL.Api.Models
     {
         public NHLStatsMutation(IPlayerRepository playerRepository, ISkaterStatisticRepository skaterRepository, ILogger<NHLStatsMutation> logging)
         {
-            Name = "CreatePlayerMutation";
+            Name = "PlayerStatMutation";
 
             Field<PlayerType>(
                 "createPlayer",
@@ -22,23 +22,20 @@ namespace GraphQL.Api.Models
                 {
                     var player = context.GetArgument<Player>("player");
                     var skaterStats = context.GetArgument<List<SkaterStatistic>>("skaterStats");
-                    var addedPlayer = playerRepository.Add(player).Result;
-                    logging.LogInformation($"stats:  {skaterStats?.Count}");
-                    logging.LogInformation($"addedPlayer: {addedPlayer.Id}");
-                    logging.LogInformation($"player: {player.Id}");
-                    if(skaterStats != null) 
-                    {
-                        skaterStats.ForEach(s => {
-                            s.PlayerId = addedPlayer.Id;
-                            logging.LogInformation($"{s.PlayerId}");
-                            }
-                       );
-
-                        skaterRepository.AddRange(skaterStats);
-                    }
-                    
-                    return addedPlayer;
+                    return playerRepository.AddWithSkaterStats(player, skaterStats);
                 });
+
+            Field<StatusResultType>(
+                "deletePlayer",
+                arguments: new QueryArguments(
+                    new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "playerId" }
+                ),
+                resolve: context => 
+                {
+                    var playerId = context.GetArgument<int>("playerId");
+                    return playerRepository.Delete(playerId);
+                });
+
         }
     }
 }

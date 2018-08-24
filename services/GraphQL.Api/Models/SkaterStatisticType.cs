@@ -12,11 +12,13 @@ namespace GraphQL.Api.Models
             Field(x => x.Season.Name).Name("season");
             Field(x => x.League.Abbreviation).Name("league");
             Field(x => x.Team.Name).Name("team");
-            // graphql-dotnet can't currently automatically infer int16 so need to resolve manually
-            Field<IntGraphType>("gp", resolve: context => context.Source.GamesPlayed);
-            Field<IntGraphType>("goals", resolve: context => context.Source.Goals);
-            Field<IntGraphType>("assists", resolve: context => context.Source.Assists);
-            Field<IntGraphType>("points", resolve: context => context.Source.Points);
+
+            Field(x => x.GamesPlayed).Name("gp");
+            Field(x => x.Goals);
+            Field(x => x.Assists);
+            Field(x => x.Points);
+            // Field(x => x.PlusMinus);
+            // cannot explicitly set nullible type
             Field<IntGraphType>("plusMinus", resolve: context => context.Source.PlusMinus);
 
         }

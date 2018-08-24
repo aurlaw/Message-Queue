@@ -1,13 +1,9 @@
 # source: http://localhost:50000/graphql/
-# timestamp: Wed Aug 22 2018 18:16:15 GMT-0400 (Eastern Daylight Time)
+# timestamp: Thu Aug 23 2018 22:51:47 GMT-0400 (EDT)
 
 schema {
   query: NHLStatsQuery
-  mutation: CreatePlayerMutation
-}
-
-type CreatePlayerMutation {
-  createPlayer(player: PlayerInput!): PlayerType
+  mutation: PlayerStatMutation
 }
 
 """
@@ -60,6 +56,11 @@ input PlayerInput {
   birthDate: Date = null
 }
 
+type PlayerStatMutation {
+  createPlayer(player: PlayerInput!, skaterStats: [SkaterStatisticInput] = null): PlayerType
+  deletePlayer(playerId: Int!): StatusResultType
+}
+
 type PlayerType {
   birthDate: String
   birthPlace: String!
@@ -82,17 +83,39 @@ The `Seconds` scalar type represents a period of time represented as the total n
 """
 scalar Seconds
 
+input SkaterStatisticInput {
+  seasonId: Int = null
+  leagueId: Int = null
+  teamId: Int = null
+  gamesPlayed: Int = null
+  goals: Int = null
+  assists: Int = null
+  points: Int = null
+  plusMinus: Int = null
+}
+
 type SkaterStatisticType {
-  assists: Int
-  goals: Int
-  gp: Int
+  assists: Int!
+  goals: Int!
+  gp: Int!
   id: Int!
   league: String!
   plusMinus: Int
-  points: Int
+  points: Int!
   season: String!
   seasonId: Int!
   team: String!
+}
+
+type StatusResultType {
+  message: String!
+  statusType: StatusType
+}
+
+enum StatusType {
+  NONE
+  DELETED
+  ERROR
 }
 
 type TeamType {

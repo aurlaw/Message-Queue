@@ -17,6 +17,7 @@ using GraphQL;
 using GraphQL.Types;
 using GraphQLApi.Ui.Playground;
 using Hangfire;
+using NHLStats.Core;
 
 namespace GraphQL.Api
 {
@@ -36,6 +37,7 @@ namespace GraphQL.Api
 			                                       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddTransient<IPlayerRepository, PlayerRepository>();
 			services.AddTransient<ISkaterStatisticRepository, SkaterStatisticRepository>();
+            services.AddTransient<IProcessor, Processor>();
             // GraphQL
             services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
             services.AddSingleton<NHLStatsQuery>();
@@ -47,6 +49,8 @@ namespace GraphQL.Api
             services.AddSingleton<LeagueType>();
             services.AddSingleton<TeamType>();
             services.AddSingleton<SeasonType>();
+            services.AddSingleton<StatusResultType>();
+            services.AddSingleton<StatusTypeEnum>();
 
             var sp = services.BuildServiceProvider();
             services.AddSingleton<ISchema>(new NHLStatsSchema(new FuncDependencyResolver(type => sp.GetService(type))));

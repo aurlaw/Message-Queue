@@ -43,6 +43,12 @@ $ dotnet restore
 $ dotnet run --project services/GraphQL.Api
 ```
 
+or
+
+```
+$ dotnet watch --project services/GraphQL.Api run
+```
+
 Hangfire Dashboard
 ```http://localhost:50000/hangfire/```
 
@@ -59,12 +65,15 @@ $ cd services/GraphQL.Api/schema
 $ graphql get-schema
 ```
 
-Mutation example
+### Mutation example
 
+#### Create
 ```
-mutation ($player: PlayerInput!) {
-    createPlayer(player: $player) {
-        id name
+mutation ($player: PlayerInput!, $skaterStats: [SkaterStatisticInput]) {
+    createPlayer(player: $player, skaterStats: $skaterStats) {
+        id name skaterSeasonStats {
+          id
+        }
     }
 }
 ```
@@ -88,12 +97,27 @@ vars
             "assists": 43,
             "points": 67,
             "plusMinus": 16
-            }
-        ]  
+
+    }]
+        
 }
 
 ```
 
+#### Delete
+```
+mutation ($playerId: Int!) {
+    deletePlayer(playerId: $playerId) {
+        statusType
+    }
+}
+```
+vars
+```
+{
+    "playerId": 5   
+}
+```
 
 
 GraphQL.ConsoleApp and GraphQL.Api
