@@ -50,14 +50,22 @@ $ dotnet watch --project services/GraphQL.Api run
 ```
 
 Hangfire Dashboard
-```http://localhost:50000/hangfire/```
+
+```
+http://localhost:50000/hangfire/
+```
 
 GraphQL Playground
-```http://localhost:50000/ui/playground/```
+```
+http://localhost:50000/ui/playground/
+```
 
 
 GraphQL Schema found under
-```services/GraphQL.Api/schema/schema.graphql```
+
+```
+services/GraphQL.Api/schema/schema.graphql
+```
 
 ```
 $ npm install -g graphql-cli
@@ -65,9 +73,11 @@ $ cd services/GraphQL.Api/schema
 $ graphql get-schema
 ```
 
+
 ### Mutation example
 
 #### Create
+
 ```
 mutation ($player: PlayerInput!, $skaterStats: [SkaterStatisticInput]) {
     createPlayer(player: $player, skaterStats: $skaterStats) {
@@ -77,7 +87,9 @@ mutation ($player: PlayerInput!, $skaterStats: [SkaterStatisticInput]) {
     }
 }
 ```
+
 vars
+
 ```
 {
     "player": {
@@ -105,14 +117,17 @@ vars
 ```
 
 #### Delete
+
 ```
 mutation ($playerId: Int!) {
     deletePlayer(playerId: $playerId) {
         statusType
     }
 }
+
 ```
 vars
+
 ```
 {
     "playerId": 5   
