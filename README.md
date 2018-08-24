@@ -137,7 +137,7 @@ vars
 
 GraphQL.ConsoleApp and GraphQL.Api
 
-Additional connection string ```HangfireConnection``` for DB ```HangfireGQL```
+Additional connection string required for `HangfireConnection` for DB `HangfireGQL`
 
 
 ## Hangfire Console
