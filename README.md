@@ -35,6 +35,8 @@ This demo is based on https://github.com/mmacneil/ASPNetCoreGraphQL with an acco
 Runtime: .NET Core 2.1
 NLog
 Hangfire
+React
+Apollo
 
 Still in development
 
@@ -48,6 +50,8 @@ or
 ```
 $ dotnet watch --project services/GraphQL.Api run
 ```
+
+This will start both server and react application using Spa Services.
 
 Hangfire Dashboard
 

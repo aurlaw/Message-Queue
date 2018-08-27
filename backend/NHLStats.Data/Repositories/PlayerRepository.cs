@@ -18,11 +18,12 @@ namespace NHLStats.Data.Repositories
     {
         private readonly NHLStatsContext _db;
         private readonly ILogger<PlayerRepository> _logger;
-
-        public PlayerRepository(NHLStatsContext db, ILogger<PlayerRepository>  logger)
+        private readonly IProcessor _processor;
+        public PlayerRepository(NHLStatsContext db, ILogger<PlayerRepository>  logger, IProcessor processor)
         {
             _db = db;
             _logger = logger;
+            _processor = processor;
         }
 
         public async Task<Player> Get(int id)
@@ -44,7 +45,6 @@ namespace NHLStats.Data.Repositories
         {
             await _db.Players.AddAsync(player);
             await _db.SaveChangesAsync();
-            BackgroundJob.Enqueue(() => Console.WriteLine($"added {player.Id}"));
 
             return player;
         }
@@ -69,7 +69,7 @@ namespace NHLStats.Data.Repositories
                     }
 
                     transaction.Commit();
-                    BackgroundJob.Enqueue<IProcessor>(p => p.Process(player));
+                    BackgroundJob.Enqueue(() => _processor.Process(player));
 
                 }
                 catch (Exception ex)
@@ -102,7 +102,7 @@ namespace NHLStats.Data.Repositories
 
                     }
                     transaction.Commit();
-                    BackgroundJob.Enqueue<IProcessor>(p => p.Process(delPlayer));
+                    BackgroundJob.Enqueue(() => _processor.Process(id));
                     status.StatusType = StatusType.Deleted;
                     status.Message = $"{delPlayer.Name} deleted";
                 }

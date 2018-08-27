@@ -12,6 +12,8 @@ using NHLStats.Core.Data;
 using NHLStats.Data;
 using NHLStats.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+
 using GraphQL.Api.Models;
 using GraphQL;
 using GraphQL.Types;
@@ -72,6 +74,13 @@ namespace GraphQL.Api
 
             services.AddMvc();
 
+            // In production, the React files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "clientApp/build";
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,6 +90,10 @@ namespace GraphQL.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
+
             var playGround = "/ui/playground";
             var options = new DashboardOptions { AppPath = playGround };
 
@@ -90,7 +103,25 @@ namespace GraphQL.Api
                 Path = playGround
             });
             app.UseGraphiQl();
-            app.UseMvc();
+
+
+            // app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
+            });
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "clientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
+
 			db.EnsureSeedData();
         }
     }
