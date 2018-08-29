@@ -1,46 +1,32 @@
 import React, { Component } from 'react';
-import { ApolloProvider } from "react-apollo";
+import { Switch, Route } from 'react-router-dom'
 
-import {client} from "./service/apollo"
-import {Players} from "./components/players"
+
+import MasterLayout from './components/layout/MasterLayout'
+
+import {PlayersFeed} from "./components/playersFeed"
+import {TeamFeed} from "./components/teamFeed"
+import {LeagueFeed} from "./components/leagueFeed"
+import {SeasonFeed} from "./components/seasonFeed"
+
 //TEST ONLY
 // import gql from "graphql-tag";
 
 
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <ApolloProvider client={client}>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to Message-Queue React</h1>
-          </header>
-          <p className="App-intro">
-            <Players />
-          </p>
-        </div>
-      </ApolloProvider>
-
+        <MasterLayout>
+          <Route exact path="/" component={PlayersFeed} />
+          <Route path="/teams" component={TeamFeed} />
+          <Route path="/leagues" component={LeagueFeed} />
+          <Route path="/seasons" component={SeasonFeed} />
+        </MasterLayout>
     );
   }
 }
-
-// client
-//   .query({
-//     query: gql`
-//       {
-//         players {
-//           id
-//           name
-//         }
-//       }
-//     `
-//   })
-//   .then(result => console.log(result)); 
 
 
 export default App;

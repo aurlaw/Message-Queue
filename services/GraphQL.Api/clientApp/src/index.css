@@ -1,5 +1,13 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+.row {margin: 0;}
+.buttons {margin: 1em auto;}
+.grid-btn {
+    margin: 0.25em;
+}
+
+@media (max-width: 767px) {
+    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+    body {
+        padding-top: 50px;
+        padding-bottom: 50px;/* leave space for fixed footer */
+    }
 }
