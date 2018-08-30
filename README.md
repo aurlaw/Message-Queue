@@ -1,13 +1,8 @@
 # Message Queue
 
-
-```
-$ dotnet build
-```
-
 Create a ```appsettings.json``` file for both SBSender and SBReceiver projects.
 
-```
+```json
 {
     "AppSettings": {
         "AzureSBEndpoint": "AZURE-SERVICE-BUS-ENDPOINT",
@@ -18,71 +13,75 @@ Create a ```appsettings.json``` file for both SBSender and SBReceiver projects.
 
 ### SB Sender
 ```
-$ dotnet run --project services/SBSender
+dotnet run --project services/SBSender
 ```
 
 ### SB Receiver
 ```
-$ dotnet run --project services/SBReceiver
+dotnet run --project services/SBReceiver
 ```
 
 
 
-## GraphQL Endpoint
+## GraphQL API and Console
 
 This demo is based on https://github.com/mmacneil/ASPNetCoreGraphQL with an accompanying blog on https://fullstackmark.com/post/17/building-a-graphql-api-with-aspnet-core-2-and-entity-framework-core
 
-Runtime: .NET Core 2.1
-NLog
-Hangfire
-React
-Apollo
+### GraphQL API
+
+- .NET Core 2.1
+- SQL Server 2017 (may support lower versions, this codebase was created against 2017 and Azure SQL)
+- NLog
+- Hangfire
+- React
+- Apollo
 
 Still in development
 
-```
-$ dotnet restore
-$ dotnet run --project services/GraphQL.Api
-```
+For the Database, create two databases: `NHLStats` and `HangfireGQL`
 
-or
+Create a `appsettings.Development.json` for both GraphQL.API and GraphQL.Console applications and add the following:
 
-```
-$ dotnet watch --project services/GraphQL.Api run
-```
 
-This will start both server and react application using Spa Services.
-
-Hangfire Dashboard
+```json
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=SERVER;Initial Catalog=NHLStats;Persist Security Info=False;User ID=USERID;Password=PASSWORD;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    "HangfireConnection": "Server=SERVER;Initial Catalog=HangfireGQL;Persist Security Info=False;User ID=USERID;Password=PASSWORD;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  },
 
 ```
-http://localhost:50000/hangfire/
+
+
+Install React components and restore .NET core project
+```
+yarn --cwd "services/GraphQL.Api/clientApp" install
+dotnet restore
 ```
 
-GraphQL Playground
+To launch, run `dotnet run --project services/GraphQL.Api` or `dotnet watch --project services/GraphQL.Api run`
+
+This will start both server and react application(via webpack) using Spa Services. React application was created with CRA.
+
+**Hangfire Dashboard:** `http://localhost:50000/hangfire/`
+
+**GraphQL Playground:** `http://localhost:50000/ui/playground/`
+
+
+GraphQL Schema found under `services/GraphQL.Api/schema/schema.graphql`
+
+To generate schema file:
 ```
-http://localhost:50000/ui/playground/
+npm install -g graphql-cli
+cd services/GraphQL.Api/schema
+graphql get-schema
 ```
 
 
-GraphQL Schema found under
+#### Mutation example
 
-```
-services/GraphQL.Api/schema/schema.graphql
-```
+##### Create
 
-```
-$ npm install -g graphql-cli
-$ cd services/GraphQL.Api/schema
-$ graphql get-schema
-```
-
-
-### Mutation example
-
-#### Create
-
-```
+```graphql
 mutation ($player: PlayerInput!, $skaterStats: [SkaterStatisticInput]) {
     createPlayer(player: $player, skaterStats: $skaterStats) {
         id name skaterSeasonStats {
@@ -94,7 +93,7 @@ mutation ($player: PlayerInput!, $skaterStats: [SkaterStatisticInput]) {
 
 vars
 
-```
+```json
 {
     "player": {
     "name": "Jaromir Jagr",
@@ -120,9 +119,9 @@ vars
 
 ```
 
-#### Delete
+##### Delete
 
-```
+```graphql
 mutation ($playerId: Int!) {
     deletePlayer(playerId: $playerId) {
         statusType
@@ -132,7 +131,7 @@ mutation ($playerId: Int!) {
 ```
 vars
 
-```
+```json
 {
     "playerId": 5   
 }
@@ -141,16 +140,16 @@ vars
 
 GraphQL.ConsoleApp and GraphQL.Api
 
-Additional connection string required for `HangfireConnection` for DB `HangfireGQL`
 
-
-## Hangfire Console
-Runtime: .NET Core 2.1
+### Hangfire Console
+- .NET Core 2.1
+- NLog
+- Hangfire
 
 Still in development
 
 ```
-$ dotnet run --project services/GraphQL.ConsoleApp
+dotnet run --project services/GraphQL.ConsoleApp
 ```
 
 
