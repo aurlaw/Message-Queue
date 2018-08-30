@@ -19,10 +19,12 @@ class App extends Component {
   render() {
     return (
         <MasterLayout>
-          <Route exact path="/" component={PlayersFeed} />
-          <Route path="/teams" component={TeamFeed} />
-          <Route path="/leagues" component={LeagueFeed} />
-          <Route path="/seasons" component={SeasonFeed} />
+          <Switch>
+            <Route exact path="/" component={PlayersFeed} />
+            <Route path="/teams" component={TeamFeed} />
+            <Route path="/leagues" component={LeagueFeed} />
+            <Route path="/seasons" component={SeasonFeed} />
+          </Switch>
         </MasterLayout>
     );
   }
