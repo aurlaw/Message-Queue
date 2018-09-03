@@ -12,6 +12,11 @@ const GET_PLAYERS = gql`
           id
           name
           birthPlace
+          skaterSeasonStats(limit: 5 sort: true) {
+              id
+              points
+              season
+            }          
         }
       }    
 `;
@@ -26,9 +31,13 @@ export const PlayersFeed = () => (
         <section>
           <Helmet title="Home" />    
           <h2>Players</h2>
-              {data.players.map(p => 
-                <Player key={p.id} {...p} />
-              )}
+            <div className="row">
+            {data.players.map(p => 
+              <div key={p.id} className="col-md-4">
+                 <Player {...p} />
+              </div>
+            )}
+          </div>
         </section>
        ); 
     }}

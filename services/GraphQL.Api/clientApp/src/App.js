@@ -13,7 +13,6 @@ import {SeasonFeed} from "./components/seasonFeed"
 // import gql from "graphql-tag";
 
 
-import './App.css';
 
 class App extends Component {
   render() {
