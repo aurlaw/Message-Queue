@@ -22,13 +22,17 @@ export const LeagueFeed = () => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
        return (
+          <React.Fragment>
+          <Helmet title="Leagues" />    
           <section>
-            <Helmet title="Leagues" />    
               <h2>Leagues</h2>
+            </section>
+            <div className="row p-2">
               {data.leagues.map(l =>
-                <League key={l.id} {...l}/>
+                  <League key={l.id} {...l}/>
               )}
-          </section>
+            </div>
+        </React.Fragment>
        ); 
     }}
   </Query>

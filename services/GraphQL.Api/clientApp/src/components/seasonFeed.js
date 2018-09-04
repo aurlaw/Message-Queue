@@ -22,13 +22,17 @@ export const SeasonFeed = () => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
        return (
+        <React.Fragment>
+          <Helmet title="Seasons" />    
           <section>
-            <Helmet title="Seasons" />    
               <h2>Seasons</h2>
-              {data.seasons.map(l =>
-                <Season key={l.id} {...l}/>
-              )}
           </section>
+          <div className="row p-2">
+            {data.seasons.map(l =>
+              <Season key={l.id} {...l}/>
+            )}
+        </div>
+        </React.Fragment>
        ); 
     }}
   </Query>

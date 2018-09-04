@@ -22,13 +22,17 @@ export const TeamFeed = () => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
        return (
+        <React.Fragment>
+          <Helmet title="Teams" />    
           <section>
-            <Helmet title="Teams" />    
               <h2>Teams</h2>
+            </section>
+            <div className="row p-2">
               {data.teams.map(t =>
                 <Team key={t.id} {...t}/>
               )}
-          </section>
+            </div>
+        </React.Fragment>
        ); 
     }}
   </Query>

@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Asar|Oxygen");
 .card {
     background-color: black;
-    width: 250px;
+    /* width: 250px; */
     height: 300px;
     border-radius: 10px;
     perspective: 1500;
+    margin-bottom: 1em;
     transition: box-shadow 0.5s ease-in-out;
     transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
     transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
@@ -14,12 +16,18 @@
     transform-style: preserve-3d;
     box-shadow: 5px 5px 24px 0px rgba(0, 0, 0, 0.2);
   }
-  @media (min-height: 600px) {
+  /* @media (min-height: 600px) {
     .card {
-      width: 400px;
-      height: 550px;
+      width: 300px;
+      height: 450px;
     }
-  }
+  } */
+  /* @media (max-width: 600px) {
+    .card {
+      width: 300px;
+      height: 450px;
+    }
+  } */
   .card h2, .card h3, .card P {
     transform: translateZ(2px);
     color: white;
@@ -32,12 +40,18 @@
     transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
     transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   }
-  @media (min-height: 600px) {
+  /* @media (min-height: 600px) {
     .card h2, .card h3, .card P {
       font-size: 40px;
       line-height: 40px;
     }
-  }
+  } */
+  /* @media (min-width: 600px) {
+    .card h2, .card h3, .card P {
+      font-size: 40px;
+      line-height: 40px;
+    }
+  }  */
   .card h2 {
     margin: 20px 0 0 0;
   }
@@ -75,13 +89,14 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("https://source.unsplash.com/kpAXYoXSeuY/600x600") no-repeat center center;
-    background-size: cover;
+    /* background: url("https://source.unsplash.com/kpAXYoXSeuY/600x600") no-repeat center center;*/
+    background-size: cover; 
     border-radius: 10px;
     transition: -webkit-transform 0.5s ease-in-out;
     transition: transform 0.5s ease-in-out;
     transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
     overflow: hidden;
+    opacity: .55;
   }
   .card .photo:after {
     position: absolute;
@@ -223,7 +238,7 @@
         transform: translateX(-12.5px) rotateX(-90deg) rotateY(-25deg);
     }
   }
-  .details .card .bar.bar1 {
+  /* .details .card .bar.bar1 {
     height: 150px;
     transition-delay: 0.3s;
     margin-top: -150px;
@@ -257,7 +272,7 @@
     height: 75px;
     transition-delay: 0.3s;
     margin-top: -75px;
-  }
+  } */
   .details .card .bar span {
     opacity: 1;
     transition-delay: 0.3s;

@@ -21,7 +21,9 @@ body {
     
     
 }
-
+.p-2 {
+    padding: 2em;
+}
 /* .row {margin: 0;}
 .buttons {margin: 1em auto;}
 .grid-btn {

@@ -2,7 +2,7 @@
 {
 	background: linear-gradient(120deg, rgba(50, 150, 100, 0.6) , rgba(0, 0, 100, 0) );
 } */
-
+@import url("https://fonts.googleapis.com/css?family=Asar|Oxygen");
 .background-container
 {
     background: linear-gradient(135deg, rgba(180,221,180,1) 0%,
@@ -27,4 +27,15 @@
         color: white;    
     border: 1px solid rgba(255, 255, 255, .25);    
     padding: 2em;
+    font-family: 'Oxygen', sans-serif;
+
+}
+
+
+section h2 {
+    background-image: none;
+    background: rgba(0,0,0,.10);
+    color: white;
+    box-shadow: 0 2px 4px 0px rgba(0, 0, 0, .25);
+    padding: .5em;
 }
