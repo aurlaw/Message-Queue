@@ -110,6 +110,14 @@ export default PlayerAdd;
 /**
  * 
  * 
+mutation ($player: PlayerInput!, $skaterStats: [SkaterStatisticInput]) {
+    createPlayer(player: $player, skaterStats: $skaterStats) {
+        id name skaterSeasonStats {
+          id
+        }
+    }
+} * 
+ * 
  {
     "player": {
     "name": "Jaromir Jagr",
