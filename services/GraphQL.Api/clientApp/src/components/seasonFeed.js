@@ -1,23 +1,14 @@
 import React from 'react';
-
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import Helmet from "react-helmet/lib/Helmet";
 
-import Season from './season'
 
-const GET_SEASONS = gql`
-    {
-        seasons {
-            id
-            name
-        } 
-    } 
-`;
+import {seasonsQuery} from '../graphql'
+import Season from './season'
 
 
 export const SeasonFeed = () => (
-  <Query query={GET_SEASONS}>
+  <Query query={seasonsQuery}>
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;

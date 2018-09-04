@@ -21,20 +21,21 @@ namespace NHLStats.Data.Repositories
 
         public async Task<List<SkaterStatistic>> Get(int playerId, int? limit = null, int? offset = null, bool? sortAsc=null)
         {
-            var results = _db.SkaterStatistics.Include(ss=>ss.Season).Include(ss=>ss.League).Include(ss=>ss.Team).Where(ss => ss.PlayerId == playerId);
+            var results = _db.SkaterStatistics.Include(ss=>ss.Season).Include(ss=>ss.League).Include(ss=>ss.Team).Where(ss => ss.PlayerId == playerId)
+                .Where(ss => ss.Season.Name.Contains("Regular"));
             if(sortAsc.HasValue) 
             {
                 if(sortAsc.Value) 
                 {
-                    results = results.OrderByDescending(ss => ss.Id);
+                    results = results.OrderByDescending(ss => ss.Season.Name);
                 } else
                  {
-                    results = results.OrderBy(ss => ss.Id);
+                    results = results.OrderBy(ss => ss.Season.Name);
                 }
             } 
             else 
             {
-                results = results.OrderByDescending(ss => ss.Id);
+                results = results.OrderByDescending(ss => ss.Season.Name);
             }
             if(offset.HasValue) 
             {
@@ -58,12 +59,12 @@ namespace NHLStats.Data.Repositories
 
         public async Task<List<Season>> GetAllSeasons() 
         {
-            return await _db.Seasons.ToListAsync();
+            return await _db.Seasons.Where(s => s.Name.Contains("Regular")).OrderBy(s => s.Name).ToListAsync();
         }
 
         public async Task<List<Team>> GetAllTeams()
         {
-            return await _db.Teams.ToListAsync();
+            return await _db.Teams.OrderBy(t => t.Name).ToListAsync();
         }
 
         public async Task<List<League>> GetAllLeagues()

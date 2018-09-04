@@ -1,23 +1,13 @@
 import React from 'react';
-
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import Helmet from "react-helmet/lib/Helmet";
 
+
+import {teamsQuery} from '../graphql'
 import Team from './team'
 
-const GET_TEAMS = gql`
-    {
-        teams {
-            id
-            name
-        } 
-    } 
-`;
-
-
 export const TeamFeed = () => (
-  <Query query={GET_TEAMS}>
+  <Query query={teamsQuery}>
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;

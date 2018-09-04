@@ -1,32 +1,14 @@
 import React from 'react';
-
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import Helmet from "react-helmet/lib/Helmet";
 import Link from 'react-router-dom/Link';
 
-
+import {playersQuery} from '../graphql'
 import Player from "./player";
-
-const GET_PLAYERS = gql`
-      {
-        players {
-          id
-          name
-          height
-          weightLbs
-          skaterSeasonStats(limit: 5 sort: true) {
-              id
-              points
-              season
-            }          
-        }
-      }    
-`;
 
 
 export const PlayersFeed = () => (
-  <Query query={GET_PLAYERS}>
+  <Query query={playersQuery}>
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
