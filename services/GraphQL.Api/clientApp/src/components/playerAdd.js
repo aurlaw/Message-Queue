@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Query, Mutation } from "react-apollo";
-import Helmet from "react-helmet/lib/Helmet";
+import { Query } from "react-apollo";
 
 
-import {playersQuery, teamsQuery, leaguesQuery, seasonsQuery, createPlayerMutation} from '../graphql'
+import { teamsQuery, leaguesQuery, seasonsQuery} from '../graphql'
 
 
 import "./playerAdd.css"
@@ -35,7 +34,26 @@ class PlayerAdd extends Component {
 
       handleSubmit = (e) => {
             e.preventDefault();
-            console.log('submitted', this.state);
+            let createPlayer = {
+                name: this.state.name,
+                birthPlace: this.state.birthPlace,
+                height: this.state.height,
+                weightLbs: parseInt(this.state.weightLbs),
+                skaterStats: [
+                    {
+                        seasonId: parseInt(this.state.seasonId),
+                        leagueId: parseInt(this.state.leagueId),
+                        teamId: parseInt(this.state.teamId),
+                        gamesPlayed: parseInt(this.state.gamesPlayed),
+                        goals: parseInt(this.state.goals),
+                        assists: parseInt(this.state.assists),
+                        points: parseInt(this.state.points),
+                        plusMinus: parseInt(this.state.plusMinus)                        
+                    }
+                ]
+            }
+
+            this.props.onHandleSubmission(createPlayer);
       }
 
       handleUserInput = (e) => {
@@ -112,11 +130,6 @@ class PlayerAdd extends Component {
       render() {
         return (
                 <React.Fragment>
-                <Helmet title="Add Player" />  
-                <section>
-                    <h2>Add Player</h2>
-                </section>
-                <div className="row p-2">
                     <form className="addPlayerForm" onSubmit={this.handleSubmit}>
                     <div className={`form-group ${this.errorClass(this.state.formErrors.name)}`}>
                     <label htmlFor="name">Name</label>
@@ -241,7 +254,6 @@ class PlayerAdd extends Component {
                     <button type="submit" className="btn btn-primary"  disabled={!this.state.formValid}>Submit</button>
                 </form>
         
-                </div>
         </React.Fragment>
         );
       }
@@ -249,39 +261,3 @@ class PlayerAdd extends Component {
 }
 
 export default PlayerAdd;
-
-/**
- * 
- * 
-mutation ($player: PlayerInput!, $skaterStats: [SkaterStatisticInput]) {
-    createPlayer(player: $player, skaterStats: $skaterStats) {
-        id name skaterSeasonStats {
-          id
-        }
-    }
-} * 
- * 
- {
-    "player": {
-    "name": "Jaromir Jagr",
-    "birthPlace": "Kladno, Czech Republic",
-    "height": "6'03",
-    "weightLbs": 230,
-    "birthDate": "1972-02-15"
-    },
-    "skaterStats": [
-            {
-            "seasonId": 17,
-            "leagueId": 1,
-            "teamId": 5,
-            "gamesPlayed": 82,
-            "goals": 24,
-            "assists": 43,
-            "points": 67,
-            "plusMinus": 16
-
-    }]
-        
-}
- * 
- */

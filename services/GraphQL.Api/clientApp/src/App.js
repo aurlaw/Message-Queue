@@ -8,7 +8,7 @@ import {PlayersFeed} from "./components/playersFeed"
 import {TeamFeed} from "./components/teamFeed"
 import {LeagueFeed} from "./components/leagueFeed"
 import {SeasonFeed} from "./components/seasonFeed"
-import PlayerAdd from "./components/playerAdd"
+import {AddPlayerContainer} from "./components/addPlayerContainer"
 
 //TEST ONLY
 // import gql from "graphql-tag";
@@ -21,7 +21,7 @@ class App extends Component {
         <MasterLayout>
           <Switch>
             <Route exact path="/" component={PlayersFeed} />
-            <Route exact path="/add" component={PlayerAdd} />
+            <Route exact path="/add" component={AddPlayerContainer} />
             <Route path="/teams" component={TeamFeed} />
             <Route path="/leagues" component={LeagueFeed} />
             <Route path="/seasons" component={SeasonFeed} />
