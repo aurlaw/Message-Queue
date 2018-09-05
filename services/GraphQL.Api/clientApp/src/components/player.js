@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {DeleteBtn} from "./deleteBtn"
+
 import './player.css';
 
 function adjustHeight(num) {
@@ -31,11 +33,15 @@ class Player extends Component {
             tilted: false,
           }        
         this.handleToggle = this.handleToggle.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
     handleToggle() {
         this.setState((prevState, props) => {
             return {tilted: !prevState.tilted};
           })        
+    }
+    handleDelete() {
+        console.log("delete", this.props.id);
     }
 
 
@@ -57,6 +63,7 @@ class Player extends Component {
                         </div>
                         <h3>{totalPoints} pts</h3>
                     </div>
+                    <DeleteBtn onDelete={this.handleDelete} />                
                 </div>  
             </React.Fragment>
         )

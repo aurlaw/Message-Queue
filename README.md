@@ -96,11 +96,11 @@ vars
 ```json
 {
     "player": {
-    "name": "Jaromir Jagr",
-    "birthPlace": "Kladno, Czech Republic",
-    "height": "6'03",
-    "weightLbs": 230,
-    "birthDate": "1972-02-15"
+        "name": "Jaromir Jagr",
+        "birthPlace": "Kladno, Czech Republic",
+        "height": "6'03",
+        "weightLbs": 230,
+        "birthDate": "1972-02-15"
     },
     "skaterStats": [
             {

@@ -35,10 +35,13 @@ class PlayerAdd extends Component {
       handleSubmit = (e) => {
             e.preventDefault();
             let createPlayer = {
-                name: this.state.name,
-                birthPlace: this.state.birthPlace,
-                height: this.state.height,
-                weightLbs: parseInt(this.state.weightLbs),
+                player: {
+                    name: this.state.name,
+                    birthPlace: this.state.birthPlace,
+                    height: this.state.height,
+                    weightLbs: parseInt(this.state.weightLbs)
+    
+                },
                 skaterStats: [
                     {
                         seasonId: parseInt(this.state.seasonId),
@@ -55,7 +58,6 @@ class PlayerAdd extends Component {
 
             this.props.onHandleSubmission(createPlayer);
       }
-
       handleUserInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;

@@ -1,5 +1,22 @@
 import gql from "graphql-tag";
 
+const PlayersFeedFfragments = {
+    player: gql`
+      fragment PlayerStats on PlayerType {
+        id
+          name
+          height
+          weightLbs
+          skaterSeasonStats(limit: 5 sort: true) {
+              id
+              points
+              season
+            }          
+      }
+    `,
+  };
+
+
 export const leaguesQuery = gql`
     {
         leagues {
@@ -30,26 +47,26 @@ export const seasonsQuery = gql`
 export const playersQuery = gql`
       {
         players {
-          id
-          name
-          height
-          weightLbs
-          skaterSeasonStats(limit: 5 sort: true) {
-              id
-              points
-              season
-            }          
+            ...PlayerStats
         }
       }    
+      ${PlayersFeedFfragments.player}
 `;
 
 
 export const createPlayerMutation = gql`
     mutation ($player: PlayerInput!, $skaterStats: [SkaterStatisticInput]) {
         createPlayer(player: $player, skaterStats: $skaterStats) {
-            id name skaterSeasonStats {
-            id
-            }
+            ...PlayerStats
+        }
+    }
+    ${PlayersFeedFfragments.player}
+`;
+
+export const deletePlayerMutation = gql`
+    mutation ($playerId: Int!) {
+        deletePlayer(playerId: $playerId) {
+            statusType
         }
     }
 `;

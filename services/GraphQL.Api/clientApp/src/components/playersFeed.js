@@ -6,9 +6,9 @@ import Link from 'react-router-dom/Link';
 import {playersQuery} from '../graphql'
 import Player from "./player";
 
-
+//fetchPolicy="cache-and-network"
 export const PlayersFeed = () => (
-  <Query query={playersQuery}>
+  <Query query={playersQuery} >
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
