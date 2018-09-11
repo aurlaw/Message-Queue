@@ -124,7 +124,7 @@ vars
 ```graphql
 mutation ($playerId: Int!) {
     deletePlayer(playerId: $playerId) {
-        statusType
+        id, statusType
     }
 }
 

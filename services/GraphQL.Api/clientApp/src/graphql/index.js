@@ -66,7 +66,7 @@ export const createPlayerMutation = gql`
 export const deletePlayerMutation = gql`
     mutation ($playerId: Int!) {
         deletePlayer(playerId: $playerId) {
-            statusType
+            id, statusType
         }
     }
 `;

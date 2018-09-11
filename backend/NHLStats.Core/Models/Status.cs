@@ -6,6 +6,8 @@ namespace NHLStats.Core.Models
 
         public string Message  {get; set; } = string.Empty;
 
+        public int Id {get;set;}
+
         public Status()
         {
             

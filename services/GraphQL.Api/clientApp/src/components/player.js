@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { Mutation } from "react-apollo";
 
 import {DeleteBtn} from "./deleteBtn"
+import {playersQuery, deletePlayerMutation} from '../graphql'
+
+
 
 import './player.css';
 
@@ -33,16 +37,16 @@ class Player extends Component {
             tilted: false,
           }        
         this.handleToggle = this.handleToggle.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
+        // this.handleDelete = this.handleDelete.bind(this);
     }
     handleToggle() {
         this.setState((prevState, props) => {
             return {tilted: !prevState.tilted};
           })        
     }
-    handleDelete() {
-        console.log("delete", this.props.id);
-    }
+    // handleDelete() {
+    //     console.log("delete", this.props.id);
+    // }
 
 
     render() {
@@ -63,7 +67,28 @@ class Player extends Component {
                         </div>
                         <h3>{totalPoints} pts</h3>
                     </div>
-                    <DeleteBtn onDelete={this.handleDelete} />                
+                    <Mutation 
+                        mutation={deletePlayerMutation}
+                        update={(cache, { data: { deletePlayer } }) => {
+                            const query = playersQuery;
+                            const { players } = cache.readQuery({ query: query });                           
+                            let updatePlayers =players.filter(p => p.id !== deletePlayer.id);
+                            // console.log('cache.readQuery', players);
+                            // console.log('cache delete', deletePlayer);
+                            // console.log('cache delete', updatePlayers);
+                            cache.writeQuery({
+                                query: query,
+                                data: {players:updatePlayers}
+                            });
+                        }}    
+                        >
+                        {(deletePlayer, { loading, error }) =>  (
+                            <DeleteBtn message={`Do you want to delete ${this.props.name}?`} onDelete={() => {
+                                deletePlayer({variables: {playerId: this.props.id}});
+                            }} 
+                            />                
+                        )}
+                    </Mutation>
                 </div>  
             </React.Fragment>
         )

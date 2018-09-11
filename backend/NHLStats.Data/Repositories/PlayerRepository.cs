@@ -84,6 +84,7 @@ namespace NHLStats.Data.Repositories
         public async Task<Status> Delete(int id)
         {
             var status = new Status();
+            status.Id = id;
             using(var transaction = _db.Database.BeginTransaction())
             {
                 try 

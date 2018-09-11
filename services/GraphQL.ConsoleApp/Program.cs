@@ -7,6 +7,8 @@ using Hangfire.SqlServer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 
 namespace GraphQL.ConsoleApp
 {
@@ -24,9 +26,21 @@ namespace GraphQL.ConsoleApp
 
             var configuration = builder.Build();
 
+            var host = WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+                {
+                logging.ClearProviders();
+                logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                })
+                .Build();
+
+
+            host.RunAsync();
+
             try
             {
-                var servicesProvider = BuildDi();
+                // var servicesProvider = BuildDi();
                 logger.Info("Starting Hangfire...");
                 JobStorage.Current = new SqlServerStorage(configuration.GetConnectionString("HangfireConnection"));
                 using (var server = new BackgroundJobServer())
@@ -48,23 +62,23 @@ namespace GraphQL.ConsoleApp
             }
         }
 
-        private static IServiceProvider BuildDi()
-        {
-            var services = new ServiceCollection();
+        // private static IServiceProvider BuildDi()
+        // {
+        //     var services = new ServiceCollection();
 
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
-            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-            services.AddLogging((builder) => builder.SetMinimumLevel(LogLevel.Trace));
+        //     services.AddSingleton<ILoggerFactory, LoggerFactory>();
+        //     services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
+        //     services.AddLogging((builder) => builder.SetMinimumLevel(LogLevel.Trace));
 
-            var serviceProvider = services.BuildServiceProvider();
+        //     var serviceProvider = services.BuildServiceProvider();
 
-            var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+        //     var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
 
-            //configure NLog
-            loggerFactory.AddNLog(new NLogProviderOptions { CaptureMessageTemplates = true, CaptureMessageProperties = true });
-            NLog.LogManager.LoadConfiguration("nlog.config");
-            return serviceProvider;
-        }        
+        //     //configure NLog
+        //     loggerFactory.AddNLog(new NLogProviderOptions { CaptureMessageTemplates = true, CaptureMessageProperties = true });
+        //     NLog.LogManager.LoadConfiguration("nlog.config");
+        //     return serviceProvider;
+        // }        
 
 
 
