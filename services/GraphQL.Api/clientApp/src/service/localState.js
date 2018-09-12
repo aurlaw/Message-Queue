@@ -1,6 +1,6 @@
 // import ApolloClient from "apollo-boost";
 
-import {notificationQuery} from "../graphql/local"
+// import {notificationQuery} from "../graphql/local"
 
 const notificationDefaults = {
     notification: {
@@ -13,15 +13,13 @@ const notificationDefaults = {
 const notificationResolver = {
     Mutation: {
         addNotification: (_, { message, created }, { cache }) => {
-            const previous = cache.readQuery({ notificationQuery });
-            const data = { ...previous, message: message, created: created };
+            // const previous = cache.readQuery({ notificationQuery });
+            const data = {notification: { message: message, created: created, __typename: 'Notification' }}; 
             cache.writeData({data});
           return null;
         }
       }
 }
-
-
 
 
 export const localState = {

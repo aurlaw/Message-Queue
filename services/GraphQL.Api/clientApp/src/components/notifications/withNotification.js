@@ -26,6 +26,8 @@ function withNotification(WrappedComponent, useQuery) {
                         if (error) return <p>Error :(</p>;
                         return (
                             <WrappedComponent data={data} updateNotification={(m,c) => {
+                                console.log(m);
+                                console.log(c);
                                 addNotification({variables: {message: m, created: c}});
                             }}  {...this.props}  />
                         ); 
@@ -34,6 +36,8 @@ function withNotification(WrappedComponent, useQuery) {
                      }
                      {!showQuery && 
                             <WrappedComponent updateNotification={(m,c) => {
+                                console.log(m);
+                                console.log(c);
                                 addNotification({variables: {message: m, created: c}});
                             }}  {...this.props}  />
                     }
