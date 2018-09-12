@@ -23,7 +23,12 @@ export const leaguesQuery = gql`
             id
             name
         } 
+        notification  @client {
+            message
+            created
+        }        
     } 
+    
 `;
 
 export const teamsQuery = gql`

@@ -7,6 +7,9 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import LinkContainer from 'react-router-bootstrap/lib/LinkContainer';
 import './NavMenu.css';
 
+
+import TestButton from '../notifications/notificationButton';
+
 export default props => (
   <aside>
     <Navbar inverse fixedTop fluid collapseOnSelect className="navbar-inverse-alt">
@@ -38,6 +41,8 @@ export default props => (
               <Glyphicon glyph='calendar' /> Seasons
             </NavItem>
           </LinkContainer>
+
+          <TestButton />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
