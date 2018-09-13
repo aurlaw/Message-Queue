@@ -22,10 +22,8 @@ function withNotification(WrappedComponent, useQuery) {
                      {showQuery && 
                     <Query query={notificationQuery} >
                         {({ loading, error, data }) => {
-                        if (loading) return <p>Loading...</p>;
-                        if (error) return <p>Error :(</p>;
                         return (
-                            <WrappedComponent data={data} updateNotification={(m,c) => {
+                            <WrappedComponent notification={data.notification} loading={loading} error={error} updateNotification={(m,c) => {
                                 console.log(m);
                                 console.log(c);
                                 addNotification({variables: {message: m, created: c}});

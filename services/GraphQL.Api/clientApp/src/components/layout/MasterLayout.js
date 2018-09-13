@@ -8,6 +8,7 @@ import './MasterLayout.css';
 
 
 import NavMenu from './NavMenu';
+import NotificationView from '../notifications/notificationView';
 import Footer from './Footer'
 
 
@@ -24,6 +25,9 @@ export default props => (
           <meta charSet="utf-8" />
         </Helmet>
         <article className="content">
+          <section>
+            <NotificationView />
+          </section>
           {props.children}
         </article>
       </Col>

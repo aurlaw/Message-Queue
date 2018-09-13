@@ -39,19 +39,19 @@ class PlayerAdd extends Component {
                     name: this.state.name,
                     birthPlace: this.state.birthPlace,
                     height: this.state.height,
-                    weightLbs: parseInt(this.state.weightLbs)
+                    weightLbs: parseInt(this.state.weightLbs,10)
     
                 },
                 skaterStats: [
                     {
-                        seasonId: parseInt(this.state.seasonId),
-                        leagueId: parseInt(this.state.leagueId),
-                        teamId: parseInt(this.state.teamId),
-                        gamesPlayed: parseInt(this.state.gamesPlayed),
-                        goals: parseInt(this.state.goals),
-                        assists: parseInt(this.state.assists),
-                        points: parseInt(this.state.points),
-                        plusMinus: parseInt(this.state.plusMinus)                        
+                        seasonId: parseInt(this.state.seasonId,10),
+                        leagueId: parseInt(this.state.leagueId,10),
+                        teamId: parseInt(this.state.teamId,10),
+                        gamesPlayed: parseInt(this.state.gamesPlayed,10),
+                        goals: parseInt(this.state.goals,10),
+                        assists: parseInt(this.state.assists,10),
+                        points: parseInt(this.state.points,10),
+                        plusMinus: parseInt(this.state.plusMinus,10)
                     }
                 ]
             }
@@ -80,10 +80,10 @@ class PlayerAdd extends Component {
       generatePoints(g, a) {
         let pts = 0;  
         if(g !== '') {
-            pts = parseInt(g) + parseInt(this.state.assists);
+            pts = parseInt(g,10) + parseInt(this.state.assists, 10);
           }
           if(a !== '') {
-            pts = parseInt(this.state.goals) + parseInt(a);
+            pts = parseInt(this.state.goals,10) + parseInt(a,10);
           }
           this.setState({points: pts});   
         }

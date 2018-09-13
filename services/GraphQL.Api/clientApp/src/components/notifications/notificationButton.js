@@ -4,7 +4,7 @@ import withNotification from './withNotification'
 
 
 const NotificationButton = (props) => (
-    <button className="btn" onClick={e => {
+    <button {...props} onClick={e => {
         e.preventDefault();
         props.updateNotification("test message", new Date().toISOString());
     }}>Test Notification</button>

@@ -42,7 +42,7 @@ export default props => (
             </NavItem>
           </LinkContainer>
 
-          <TestButton />
+          <TestButton className="btn btn-info" />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
