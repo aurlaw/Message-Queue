@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Query, Mutation } from "react-apollo";
 
 import {notificationQuery,addNotificationMutation} from '../../graphql/local'
+import {convertToDate} from '../../utils'
 
 
 function withNotification(WrappedComponent, useQuery) {
@@ -22,8 +23,13 @@ function withNotification(WrappedComponent, useQuery) {
                      {showQuery && 
                     <Query query={notificationQuery} >
                         {({ loading, error, data }) => {
+                            let {message, created} = data.notification;
+                            let createdDate = new Date();
+                            if(created !== null) {
+                                createdDate = convertToDate(created);
+                            }
                         return (
-                            <WrappedComponent notification={data.notification} loading={loading} error={error} updateNotification={(m,c) => {
+                            <WrappedComponent message={message} createdDate={createdDate} error={error} updateNotification={(m,c) => {
                                 console.log(m);
                                 console.log(c);
                                 addNotification({variables: {message: m, created: c}});

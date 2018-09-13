@@ -10,9 +10,6 @@ import {LeagueFeed} from "./components/leagueFeed"
 import {SeasonFeed} from "./components/seasonFeed"
 import {AddPlayerContainer} from "./components/addPlayerContainer"
 
-//TEST ONLY
-// import gql from "graphql-tag";
-
 
 
 class App extends Component {

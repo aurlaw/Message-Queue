@@ -16,4 +16,3 @@ export const addNotificationMutation = gql`
         addNotification(message: $message, created: $created) @client
     }
 `;
-

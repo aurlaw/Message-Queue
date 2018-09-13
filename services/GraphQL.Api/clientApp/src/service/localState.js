@@ -1,7 +1,3 @@
-// import ApolloClient from "apollo-boost";
-
-// import {notificationQuery} from "../graphql/local"
-
 const notificationDefaults = {
     notification: {
         __typename: 'Notification',
