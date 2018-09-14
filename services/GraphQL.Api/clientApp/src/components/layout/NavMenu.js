@@ -16,6 +16,7 @@ export default props => (
       <Navbar.Header>
         <Navbar.Brand>
           <Link to={'/'}>Message-Queue React</Link>
+
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
@@ -41,10 +42,14 @@ export default props => (
               <Glyphicon glyph='calendar' /> Seasons
             </NavItem>
           </LinkContainer>
-
+          <NavItem>
           <TestButton className="btn btn-info" />
+
+          </NavItem>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
+
   </aside>
+
 );

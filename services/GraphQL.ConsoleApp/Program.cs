@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
+using NHLStats.Data.Hubs;
 
 namespace GraphQL.ConsoleApp
 {
@@ -35,6 +37,23 @@ namespace GraphQL.ConsoleApp
                 })
                 .Build();
 
+                // IHubContext<NotificationHub> hubContext = null;
+                // using (var serviceScope = host.Services.CreateScope())
+                // {
+                //     var services = serviceScope.ServiceProvider;
+
+                //     try
+                //     {
+                //         //NotificationHub
+
+                //         hubContext = services.GetRequiredService<IHubContext<NotificationHub>>();
+                //         // Use the context here
+                //     }
+                //     catch (Exception ex)
+                //     {
+                //         logger.Error(ex, "An error occurred.");
+                //     }
+                // }
 
             host.RunAsync();
 
@@ -45,6 +64,7 @@ namespace GraphQL.ConsoleApp
                 JobStorage.Current = new SqlServerStorage(configuration.GetConnectionString("HangfireConnection"));
                 using (var server = new BackgroundJobServer())
                 {
+                    // hubContext.Clients.All.SendAsync("broadcastNotification", "Processor", "Started");
                     Console.WriteLine("Hangfire Server started. Press any key to exit...");
                     Console.ReadKey();
                 }

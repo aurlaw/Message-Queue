@@ -31,8 +31,9 @@ This demo is based on https://github.com/mmacneil/ASPNetCoreGraphQL with an acco
 
 - .NET Core 2.1
 - SQL Server 2017 (may support lower versions, this codebase was created against 2017 and Azure SQL)
-- NLog
 - Hangfire
+- Azure SignalR
+- NLog
 - React
 - Apollo
 
@@ -48,6 +49,12 @@ Create a `appsettings.Development.json` for both GraphQL.API and GraphQL.Console
     "DefaultConnection": "Server=SERVER;Initial Catalog=NHLStats;Persist Security Info=False;User ID=USERID;Password=PASSWORD;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
     "HangfireConnection": "Server=SERVER;Initial Catalog=HangfireGQL;Persist Security Info=False;User ID=USERID;Password=PASSWORD;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   },
+    "Azure": {
+    "SignalR": {
+      "ConnectionString": "Endpoint=AZURE-REDIS-ENDPOINT;"
+    }
+  },
+
 
 ```
 
@@ -143,10 +150,30 @@ GraphQL.ConsoleApp and GraphQL.Api
 
 ### Hangfire Console
 - .NET Core 2.1
-- NLog
 - Hangfire
+- Azure SignalR
+- NLog
 
 Still in development
+
+
+Create a `appsettings.Development.json` for both GraphQL.API and GraphQL.Console applications and add the following:
+
+
+```json
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=SERVER;Initial Catalog=NHLStats;Persist Security Info=False;User ID=USERID;Password=PASSWORD;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    "HangfireConnection": "Server=SERVER;Initial Catalog=HangfireGQL;Persist Security Info=False;User ID=USERID;Password=PASSWORD;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  },
+    "Azure": {
+    "SignalR": {
+      "ConnectionString": "Endpoint=AZURE-REDIS-ENDPOINT;"
+    }
+  },
+
+
+```
+
 
 ```
 dotnet run --project services/GraphQL.ConsoleApp

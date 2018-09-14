@@ -3,11 +3,22 @@ import React from 'react';
 import withNotification from './withNotification'
 
 
-const NotificationButton = (props) => (
-    <button {...props} onClick={e => {
+function NotificationButton(props) {
+    const { handleUpdateNotification, ...rest } = props;
+    return     <button {...rest} onClick={e => {
         e.preventDefault();
-        props.updateNotification("test message", new Date().toISOString());
+        props.handleUpdateNotification("test message", new Date().toISOString());
     }}>Test Notification</button>
-);
+
+}
+
+// const NotificationButton = (props) => (
+//     <button {...props} onClick={e => {
+//         e.preventDefault();
+//         props.handleUpdateNotificati on("test message", new Date().toISOString());
+//     }}>Test Notification</button>
+// );
 
 export default withNotification(NotificationButton, false);
+
+//    {};

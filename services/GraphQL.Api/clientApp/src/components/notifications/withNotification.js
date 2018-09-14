@@ -29,7 +29,7 @@ function withNotification(WrappedComponent, useQuery) {
                                 createdDate = convertToDate(created);
                             }
                         return (
-                            <WrappedComponent message={message} createdDate={createdDate} error={error} updateNotification={(m,c) => {
+                            <WrappedComponent message={message} createdDate={createdDate} error={error} handleUpdateNotification={(m,c) => {
                                 console.log(m);
                                 console.log(c);
                                 addNotification({variables: {message: m, created: c}});
@@ -39,7 +39,7 @@ function withNotification(WrappedComponent, useQuery) {
                     </Query>
                      }
                      {!showQuery && 
-                            <WrappedComponent updateNotification={(m,c) => {
+                            <WrappedComponent handleUpdateNotification={(m,c) => {
                                 console.log(m);
                                 console.log(c);
                                 addNotification({variables: {message: m, created: c}});

@@ -1,45 +1,34 @@
-import React from 'react';
-import {HubConnectionBuilder} from '@aspnet/signalr';
+import React, { Component } from 'react';
+import {HubConnectionBuilder} from '@aspnet/signalr/dist/browser/signalr';
 
 import withNotification from './withNotification'
 
 
-//TODO
-
-/*
-const signalR = require("@aspnet/signalr");
- 
-let connection = new signalR.HubConnectionBuilder()
-    .withUrl("/chat")
-    .build();
- 
-connection.on("send", data => {
-    console.log(data);
-});
- 
-connection.start()
-    .then(() => connection.invoke("send", "Hello"));
-
-
 class NotificationService extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    //     // this.state = {
+    //     //     connection: null
+    //     // };
+    // }
     componentDidMount() {
-        
+        const connection = new HubConnectionBuilder()
+            .withUrl("/notifications")
+            .build();
+        connection.on("broadcastNotification", data => {
+            console.log(data);
+            this.props.handleUpdateNotification(data, new Date().toISOString());
+        });
+        connection.start();
+        //  this.setState({connection: connection}); 
+    }
+    render() {
+        return (
+            <React.Fragment>
+                {this.props.children}
+            </React.Fragment>
+        )
     }
 
 }
-
-
-const NotificationButton = (props) => (
-    <button {...props} onClick={e => {
-        e.preventDefault();
-        props.updateNotification("test message", new Date().toISOString());
-    }}>Test Notification</button>
-);
-
-export default withNotification(NotificationButton, false);
-
-
-*/
+export default withNotification(NotificationService, false);

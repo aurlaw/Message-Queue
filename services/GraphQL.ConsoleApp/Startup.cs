@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using NLog.Extensions.Logging;
-
+using NHLStats.Data.Hubs;
 
 namespace GraphQL.ConsoleApp
 {
@@ -31,6 +31,8 @@ namespace GraphQL.ConsoleApp
             services.AddSingleton<ILoggerFactory, LoggerFactory>();
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
             services.AddLogging((builder) => builder.SetMinimumLevel(LogLevel.Trace));
+            //SignalR and Azure
+            services.AddSignalR().AddAzureSignalR();
 
             var serviceProvider = services.BuildServiceProvider();
 
@@ -46,6 +48,10 @@ namespace GraphQL.ConsoleApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Azure SignalR
+            app.UseAzureSignalR(routes => {
+                routes.MapHub<NotificationHub>("/notifications");
+            });
 
         }
     }

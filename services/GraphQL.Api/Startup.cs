@@ -20,6 +20,7 @@ using GraphQL.Types;
 using GraphQLApi.Ui.Playground;
 using Hangfire;
 using NHLStats.Core;
+using NHLStats.Data.Hubs;
 
 namespace GraphQL.Api
 {
@@ -74,6 +75,9 @@ namespace GraphQL.Api
 
             services.AddMvc();
 
+            //SignalR and Azure
+            services.AddSignalR().AddAzureSignalR();
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -111,6 +115,10 @@ namespace GraphQL.Api
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+            });
+            // Azure SignalR
+            app.UseAzureSignalR(routes => {
+                routes.MapHub<NotificationHub>("/notifications");
             });
             app.UseSpa(spa =>
             {

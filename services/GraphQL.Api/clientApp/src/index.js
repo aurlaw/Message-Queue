@@ -15,13 +15,17 @@ import {client} from "./service/apollo"
 
 import './index.css';
 import App from './App';
+import NotificationService from './components/notifications/notificationService';
 import registerServiceWorker from './registerServiceWorker';
+
 
 
 ReactDOM.render(
     <BrowserRouter>
       <ApolloProvider client={client}>
-        <App />
+        <NotificationService>
+          <App />
+        </NotificationService>
       </ApolloProvider>
     </BrowserRouter>,
     document.getElementById('root')
