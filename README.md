@@ -49,13 +49,11 @@ Create a `appsettings.Development.json` for both GraphQL.API and GraphQL.Console
     "DefaultConnection": "Server=SERVER;Initial Catalog=NHLStats;Persist Security Info=False;User ID=USERID;Password=PASSWORD;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
     "HangfireConnection": "Server=SERVER;Initial Catalog=HangfireGQL;Persist Security Info=False;User ID=USERID;Password=PASSWORD;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   },
-    "Azure": {
+  "Azure": {
     "SignalR": {
-      "ConnectionString": "Endpoint=AZURE-REDIS-ENDPOINT;"
+        "ConnectionString": "Endpoint=AZURE-SIGNALR-ENDPOINT;"
     }
-  },
-
-
+  },  
 ```
 
 
